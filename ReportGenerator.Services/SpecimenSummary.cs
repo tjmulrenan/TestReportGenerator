@@ -1,161 +1,65 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace ReportGenerator.Services
 {
-    public class SpecimenSummary
+    public static class SpecimenSummary
     {
-     //   public static string Summary => GetSummary("fixed", true, true, "Timber", "Overpanels",false , "Yes", "Yes", true);
-        public static string GetSummary(string action,
-            string insulatedResult,
-            bool glazed,
-            string materialResult,
-            string overpanelOrSidepanels,
-            string glazedOrInfilled,
-            string latched,
-            string shootbolts,
-            bool opensTowardsHeatConditions,
-            bool isPVCuFrame = false)
+        public static string GetSummary(SpecimenData specimen)
         {
+            string actionResult = specimen.Action switch
+            {
+                "Single" => "single acting",
+                "Double" => "double acting",
+                "Fixed"  => "fixed",
+                _        => "UNKNOWNACTIONRESULT"
+            };
 
-            string actionResult = "";
-            if (action == "Single")
-            {
-                actionResult = $"{action.ToLower()} acting";
-            }
-            else if (action == "Double")
-            {
-                actionResult = ($"{action.ToLower()} acting");
-            }
-            else if (action == "Fixed")
-            {
-                actionResult = ($"{action.ToLower()}");
-            }
-            else
-            {
-                actionResult = ($"UNKNOWNACTIONRESULT");
-            }
+            string glazedResult = specimen.Glazed ? "glazed " : "";
+            string pvcResult = specimen.IsPVCuFrame ? "leaves in PVCu frames" : "doorsets";
 
-            string glazedResult = "";
-            var glaze = glazed ? glazedResult = "glazed " : glazedResult = "";
+            string panelsResult = specimen.Panels switch
+            {
+                "Overpanels"                 => $"with {specimen.GlazedOrInfilled?.ToLower()} overpanels ",
+                "Sidepanels"                 => $"with {specimen.GlazedOrInfilled?.ToLower()} side panels ",
+                "Overpanels and Side Panels" => $"with {specimen.GlazedOrInfilled?.ToLower()} overpanels and side panels ",
+                "No"                         => "",
+                "Other"                      => "INSERT MORE SPECIFIC TEXT",
+                _                            => "UNKNOWNOVERPANELRESULT"
+            };
 
-                       
-            string PVCResult = "";
-            var PVC = isPVCuFrame ? PVCResult = "leaves in PVCu frames" : PVCResult = "doorsets";
+            string latchedResult = specimen.Latched switch
+            {
+                "Latched"                             => ", tested latched",
+                "Latched with two point lock engaged" => ", tested latched with automatic locks engaged",
+                "Unlatched"                           => ", tested unlatched",
+                _                                     => "UNKNOWNLATCHEDRESULT"
+            };
 
-            string otherText = "INSERT MORE SPECIFIC TEXT";
+            string shootboltsResult = specimen.Shootbolts switch
+            {
+                "Yes"                           => "shootbolts engaged, and with ",
+                "Yes but shootbolts disengaged" => "shootbolts disengaged, and with ",
+                "No"                            => "",
+                _                               => "UNKNOWNSHOOTBOLTS"
+            };
 
-            string overpanelOrSidePanelsResult;
-            if (overpanelOrSidepanels == "Overpanels")
+            string conjunction = (specimen.Latched, specimen.Shootbolts) switch
             {
-                overpanelOrSidePanelsResult = $"with {glazedOrInfilled} overpanels ";
-            }
-            else if (overpanelOrSidepanels == "Sidepanels")
-            {
-                overpanelOrSidePanelsResult = $"with {glazedOrInfilled} side panels ";
-            }
-            else if (overpanelOrSidepanels == "Overpanels and Side Panels")
-            {
-                overpanelOrSidePanelsResult = $"with {glazedOrInfilled} overpanels and side panels ";
-            }
-            else if (overpanelOrSidepanels == "No")
-            {
-                overpanelOrSidePanelsResult = "";
-            }
-            else if (overpanelOrSidepanels == "Other")
-            {
-                overpanelOrSidePanelsResult = otherText;
-            }
-            else
-            {
-                overpanelOrSidePanelsResult = "UNKNOWNOVERPANELRESULT";
-            }
+                ("Latched",                             "Yes")                           => " with ",
+                ("Latched",                             "No")                            => " with ",
+                ("Unlatched",                           "Yes but shootbolts disengaged") => " with ",
+                ("Unlatched",                           "No")                            => " with ",
+                ("Latched",                             "Yes but shootbolts disengaged") => " but with ",
+                ("Unlatched",                           "Yes")                           => " but with ",
+                ("Latched with two point lock engaged", "No")                            => "",
+                ("Latched with two point lock engaged", "Yes")                           => " and ",
+                ("Latched with two point lock engaged", "Yes but shootbolts disengaged") => " and with ",
+                _                                                                        => "UNKNOWNCONNECTOR"
+            };
 
-            string latchedResult = "";
+            string heatConditionsResult = specimen.OpensTowardsHeatConditions
+                ? "the right hand leaf opening into the furnace and the left hand leaf opening out of the furnace"
+                : "the left hand leaf opening into the furnace and the right hand leaf opening out of the furnace";
 
-            if (latched == "Latched")
-            {
-                latchedResult = ", tested latched";
-            }
-            else if (latched == "Latched with two point lock engaged")
-            {
-                latchedResult = ", tested latched with automatic locks engaged";
-            }
-            else if (latched == "Unlatched")
-            {
-                latchedResult = ", tested unlatched";
-            }
-            else
-            {
-                latchedResult = "UNKNOWNLATCHEDRESULT";
-            }
-
-            string shootboltsResult;
-
-            if (shootbolts == "Yes")
-            {
-                shootboltsResult = "shootbolts engaged, and with ";
-            }
-            else if (shootbolts == "Yes but shootbolts disengaged")
-            {
-                shootboltsResult = "shootbolts disengaged, and with";
-            }
-            else if (shootbolts == "No")
-            {
-                shootboltsResult = "";
-            }
-            else
-            {
-                shootboltsResult = "UNKNOWNSHOOTBOLTS";
-            }
-
-            string conjunction = "";
-
-            if ((latched == "Latched" && shootbolts == "Yes")
-                || (latched == "Unlatched" && shootbolts == "Yes but shootbolts disengaged")
-                || (latched == "Unlatched" && shootbolts == "No")
-                || (latched == "Latched" && shootbolts == "No"))
-            {
-                conjunction = " with ";
-            }
-            else if ((latched == "Latched" && shootbolts == "Yes but shootbolts disengaged")
-                || (latched == "Unlatched" && shootbolts == "Yes"))
-            {
-                conjunction = " but with ";
-            }
-            else if (latched == "Latched with two point lock engaged" && shootbolts == "No")
-            {
-                conjunction = "";
-            }
-            else if (latched == "Latched with two point lock engaged" && shootbolts == "Yes")
-            {
-                conjunction = " and ";
-            }
-            else if (latched == "Latched with two point lock engaged" && shootbolts == "Yes but shootbolts disengaged")
-            {
-                conjunction = " and with ";
-            }
-            else
-            {
-                conjunction = "UNKNOWNCONNECTOR";
-            }
-        
-
-
-            string opensTowardsHeatconditionsResult = "";
-
-            var isTowardsHeatConditions = !opensTowardsHeatConditions ? opensTowardsHeatconditionsResult = "the left hand leaf opening into the furnace and the right hand leaf opening out of the furnace" 
-                : opensTowardsHeatconditionsResult = " the right hand leaf opening into the furnace and the left hand leaf opening out of the furnace";
-
-            StringBuilder summary = new StringBuilder("");
-
-            summary.Append($"Two {actionResult} single leaf {insulatedResult?.ToLower()} {glazedResult}{materialResult?.ToLower()} {PVCResult}{latchedResult}{conjunction}{shootboltsResult}{opensTowardsHeatconditionsResult}.");
-
-            return summary.ToString();
-
+            return $"Two {actionResult} single leaf {specimen.Insulated?.ToLower()} {glazedResult}{specimen.Material?.ToLower()} {pvcResult}{latchedResult}{conjunction}{shootboltsResult}{heatConditionsResult}.";
         }
     }
 }
