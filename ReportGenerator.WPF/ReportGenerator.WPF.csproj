@@ -1,8 +1,8 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net5.0-windows</TargetFramework>
+    <TargetFramework>net8.0-windows</TargetFramework>
     <RootNamespace>ReportGeneratorWPF</RootNamespace>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
@@ -17,12 +17,6 @@
 
   <ItemGroup>
     <Resource Include="logo.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="content\Template.docx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
 </Project>
