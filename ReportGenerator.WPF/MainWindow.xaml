@@ -1,0 +1,95 @@
+﻿<Window x:Class="ReportGeneratorWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ReportGeneratorWPF"
+        mc:Ignorable="d"
+        Title="CFRReportGenerator" SizeToContent ="WidthAndHeight" ResizeMode ="NoResize">
+    <Window.Resources>
+        <local:InverseBooleanConverter x:Key="InverseBoolConverter"/>
+    </Window.Resources>
+    <Grid Margin="3">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="50"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="20"/>
+
+        </Grid.RowDefinitions>
+
+        <Image Height="100" Grid.Row="0" Grid.Column ="2" Width="100" Source="/logo.png"  Grid.RowSpan="4" Grid.ColumnSpan="2"/>
+        <TextBlock x:Name ="LHText"  Text="{Binding Model.LHText}"  Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="9"  TextWrapping="Wrap" Visibility="Visible" IsEnabled="{Binding Model.IsIdentical}"/>
+        <TextBlock x:Name="RHText"  Text="RH Doorset"  Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="9" TextWrapping="Wrap" Visibility="{Binding Model.IsRHVisible}"/>
+        <TextBlock Text="Test Number:"  Grid.Column="0" Grid.Row="0" TextWrapping="Wrap"/>
+        <TextBlock Text="Sponsor Name:" Grid.Column="0" Grid.Row="2" TextWrapping="Wrap"/>
+
+        <TextBlock Text="Address:"  Grid.Column="0" Grid.Row="4" TextWrapping="Wrap"/>
+
+        <TextBlock Text="Standard:"  Grid.Column="0" Grid.Row="6" TextWrapping="Wrap" />
+            <ComboBox x:Name ="StandardCombo" Text="Standard"  Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="6" ItemsSource="{Binding Model.AvailableStandards}" SelectedValue="{Binding Model.SelectedStandard, Mode=TwoWay}">
+        </ComboBox>
+        <CheckBox x:Name="SamplingReport" Content="" Grid.Column="1" Grid.Row="7" IsChecked="{Binding Model.IsSampleReport}"/>
+        <TextBlock Text="Is there a sampling report?"  Grid.Column="0" Grid.Row="7" TextWrapping="Wrap"/>
+        <CheckBox x:Name="Identical" Content="" Grid.Column="1" Grid.Row="8" IsChecked="{Binding Model.IsIdentical}"/>
+        <TextBlock Text="Are doorsets identical?"  Grid.Column="0" Grid.Row="8" TextWrapping="Wrap"/>
+        <TextBlock Text="Single acting, double acting or fixed?"  Grid.Column="0" Grid.Row="11" TextWrapping="Wrap"/>
+        <TextBlock Text="Material?"  Grid.Column="0" Grid.Row="10" TextWrapping="Wrap"/>
+        <ComboBox x:Name="LHMaterial"  Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="10" ItemsSource="{Binding Model.AvailableMaterials}" SelectedValue="{Binding Model.SelectedLHMaterial, Mode=TwoWay}" />
+        <ComboBox x:Name="RHMaterial"  Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="10" ItemsSource="{Binding Model.AvailableMaterials}" SelectedValue="{Binding Model.SelectedRHMaterial, Mode=TwoWay}" IsEnabled="{Binding Model.IsIdentical, Converter={StaticResource InverseBoolConverter}}" />
+        <ComboBox x:Name="LHActing"  Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="11" ItemsSource="{Binding Model.AvailableActing}" SelectedValue="{Binding Model.SelectedLHActing, Mode=TwoWay}" />
+        <ComboBox x:Name="RHActing"  Grid.Column="3" Grid.ColumnSpan="4" Grid.Row="11" ItemsSource="{Binding Model.AvailableActing}" SelectedValue="{Binding Model.SelectedRHActing, Mode=TwoWay}" IsEnabled="{Binding Model.IsIdentical, Converter={StaticResource InverseBoolConverter}}"/>
+        <TextBlock Text="Overpanels or side panels?"  Grid.Column="0" Grid.Row="12" TextWrapping="Wrap"/>
+        <TextBlock Text="Glazed or infilled panels?"  Grid.Column="0" Grid.Row="13" TextWrapping="Wrap"/>
+        <ComboBox x:Name="LHGlazedInfilled"  Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="13" ItemsSource="{Binding Model.AvailableGlazedInfilled}" SelectedValue="{Binding Model.SelectedLHGlazedInfilled, Mode=TwoWay}"/>
+        <ComboBox x:Name="RHGlazedInfilled"  Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="13" ItemsSource="{Binding Model.AvailableGlazedInfilled}" SelectedValue="{Binding Model.SelectedRHGlazedInfilled, Mode=TwoWay}" IsEnabled="{Binding Model.IsIdentical, Converter={StaticResource InverseBoolConverter}}"/>
+
+        <ComboBox x:Name="LHPanels"  Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="12" ItemsSource="{Binding Model.AvailablePanels}" SelectedValue="{Binding Model.SelectedLHPanels, Mode=TwoWay}"/>
+        <ComboBox x:Name="RHPanels"  Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="12" ItemsSource="{Binding Model.AvailablePanels}" SelectedValue="{Binding Model.SelectedRHPanels, Mode=TwoWay}" IsEnabled="{Binding Model.IsIdentical, Converter={StaticResource InverseBoolConverter}}"/>
+        <TextBlock Text="Insulated?"  Grid.Column="0" Grid.Row="14" TextWrapping="Wrap"/>
+        <ComboBox x:Name="LHInsulated"  Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="14" ItemsSource="{Binding Model.AvailableInsulated}" SelectedValue="{Binding Model.SelectedLHInsulated, Mode=TwoWay}"/>
+        <ComboBox x:Name="RHInsulated"  Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="14" ItemsSource="{Binding Model.AvailableInsulated}" SelectedValue="{Binding Model.SelectedRHInsulated, Mode=TwoWay}" IsEnabled="{Binding Model.IsIdentical, Converter={StaticResource InverseBoolConverter}}"/> 
+        <TextBlock Text="Is there leaf glazing?"  Grid.Column="0" Grid.Row="15" TextWrapping="Wrap"/>
+        <CheckBox x:Name ="LHGlazed" Content="" Grid.Column="1" Grid.Row="15" IsChecked="{Binding Model.IsLeftHandGlazed}"/>
+        <CheckBox x:Name ="RHGlazed" Content="" Grid.Column="3" Grid.Row="15" IsEnabled="{Binding Model.IsIdentical, Converter={StaticResource InverseBoolConverter}}" IsChecked="{Binding Model.IsRightHandGlazed}"/>
+        <TextBlock Text="Latched?"  Grid.Column="0" Grid.Row="16" TextWrapping="Wrap"/>
+        <ComboBox x:Name="LHLatch"  Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="16" ItemsSource="{Binding Model.AvailableLatched}" SelectedValue="{Binding Model.SelectedLHLatched, Mode=TwoWay}"/>
+        <ComboBox x:Name="RHLatch"  Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="16" ItemsSource="{Binding Model.AvailableLatched}" SelectedValue="{Binding Model.SelectedRHLatched, Mode=TwoWay}" IsEnabled="{Binding Model.IsIdentical, Converter={StaticResource InverseBoolConverter}}"/>
+        <TextBlock Text="Shootbolts?"  Grid.Column="0" Grid.Row="17" TextWrapping="Wrap"/>
+        <ComboBox x:Name="LHShootbolts"  Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="17" ItemsSource="{Binding Model.AvailableShootbolts}" SelectedValue="{Binding Model.SelectedLHShootbolts, Mode=TwoWay}"/>
+        <ComboBox x:Name="RHShootbolts"  Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="17" ItemsSource="{Binding Model.AvailableShootbolts}" SelectedValue="{Binding Model.SelectedRHShootbolts, Mode=TwoWay}" IsEnabled="{Binding Model.IsIdentical, Converter={StaticResource InverseBoolConverter}}"/>
+        <TextBlock Text="Opens towards heat conditions?"  Grid.Column="0" Grid.Row="18" TextWrapping="Wrap"/>
+        <CheckBox x:Name="LHHeatConditions" Grid.Column="1" Grid.Row="18" IsChecked="{Binding Model.IsLeftHandOpeningTowardsHeatConditions}"/>
+        <CheckBox x:Name="RHHeatConditions" Grid.Column="3" Grid.Row="18" IsEnabled="{Binding Model.IsIdentical, Converter={StaticResource InverseBoolConverter}}" IsChecked="{Binding Model.IsRightHandOpeningTowardsHeatConditions}"/>
+        <Button x:Name="create" Content="Create Document" Grid.Row="19" Grid.ColumnSpan="5" Command="{Binding Model.CreateCommand}"/>
+
+        <local:PlaceholderTextBox x:Name="TestNum"  Grid.Column="0"  Grid.Row="1" PlaceholderText="eg. 2105191" Text="{Binding Model.TestNumber, UpdateSourceTrigger=PropertyChanged}"/>
+        <local:PlaceholderTextBox x:Name="SponsorName" Grid.Column="0"  Grid.Row="3" PlaceholderText="eg. Cambridge Fire Research" Text="{Binding Model.SponsorName, UpdateSourceTrigger=PropertyChanged}"/>
+        <local:PlaceholderTextBox x:Name="Address" Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="5" PlaceholderText="eg. Brewery Rd,Pampisford,Cambridge,CB22 3HG" Text="{Binding Model.Address, UpdateSourceTrigger=PropertyChanged}"/>
+       
+        
+    </Grid>
+</Window>

@@ -1,0 +1,1 @@
+The test results relate only to the specimen tested. Appendix A of BS476: Part 20: 1987 provides guidance information on the application of fire resistance tests and the interpretation of test data. Application of the results to specimens of different dimensions, orientation or incorporating different components should be the subject of a design appraisal or further testing.

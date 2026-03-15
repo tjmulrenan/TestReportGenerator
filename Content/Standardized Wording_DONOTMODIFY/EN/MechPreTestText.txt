@@ -1,0 +1,3 @@
+Mechanical pre-test conditioning was carried out in accordance with BS EN 16034:2014. This included fully opening and closing for 25 cycles to check for operability. 
+
+As closers were fitted one additional operation was carried out comprising of opening the leaves to 10° ± 2°, holding for 20 s ± 2 s and releasing without shock. This was at a maximum mean average speed of 300 mm/s and a closed position was achieved.

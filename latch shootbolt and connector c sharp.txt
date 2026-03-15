@@ -1,0 +1,90 @@
+            if (latched == "Yes")
+            {
+                latchedResult = ", tested latched";
+            }
+            else if (latched == "Yes with automatic locks")
+            {
+                latchedResult = ", tested latched with automatic locks engaged";
+            }
+            else if (latched == "No")
+            {
+                latchedResult = ",tested unlatched";
+            }
+            else if (latched == "No latch fitted")
+            {
+                latchedResult = ", with no latch fitted";
+            }
+            else
+            {
+                latchedResult = "UNKNOWN";
+            }
+
+            string shootboltsResult;
+
+            if (shootbolts == "Yes")
+            {
+                shootboltsResult = "shootbolts engaged, and with ";
+            }
+            else if (shootbolts == "Yes but disengaged")
+            {
+                shootboltsResult = "shootbolts disengaged, and with";
+            }
+            else if (shootbolts == "No")
+            {
+                shootboltsResult = "";
+            }
+            else
+            {
+                shootboltsResult = "UNKNOWN";
+            }
+
+            string connector = "";
+
+            if (latched == "Yes" && shootbolts == "Yes")
+            {
+                connector = " with ";
+            }
+            else if (latched == "Yes" && shootbolts == "Yes but disengaged")
+            {
+                connector = " but with ";
+            }
+            else if (latched == "Yes" && shootbolts == "")
+            {
+                connector = "";
+            }
+            else if (latched == "Yes, with automatic locks" && shootbolts == "Yes")
+            {
+                connector = "and";
+            }
+            else if (latched == "Yes, with automatic locks" && shootbolts == "Yes but disengaged")
+            {
+                connector = "and with";
+            }
+            else if (latched == "Yes, with automatic locks" && shootbolts == "No")
+            {
+                connector = "";
+            }
+            else if (latched == "No" && shootbolts == "Yes")
+            {
+                connector = " but with ";
+            }
+            else if (latched == "No" && shootbolts == "Yes but disengaged")
+            {
+                connector = " with ";
+            }
+            else if (latched == "No" && shootbolts == "No")
+            {
+                connector = "";
+            }
+            else if (latched == "No latched fitted" && shootbolts == "Yes")
+            {
+                connector = " but with ";
+            }
+            else if (latched == "No latched fitted" && shootbolts == "Yes but disengaged")
+            {
+                connector = " and with";
+            }
+            else if (latched == "No latched fitted" && shootbolts == "No")
+            {
+                connector = "";
+            }

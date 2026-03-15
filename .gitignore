@@ -1,0 +1,16 @@
+# Build output
+bin/
+obj/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Temp/lock files
+~$*
+*.tmp
+*.bak
+
+# Created output docs
+CreatedTestDocs/

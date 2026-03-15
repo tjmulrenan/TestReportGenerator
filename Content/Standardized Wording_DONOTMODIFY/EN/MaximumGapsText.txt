@@ -1,0 +1,1 @@
+The maximum permitted gaps in practice are (EN 1634-1:2014 + A1:2018 sect. 13.3.3.2.5): <INSERT GAP TABLE HERE>
