@@ -263,7 +263,7 @@ namespace ReportGeneratorWPF
         {
             get
             {
-                return _selectedRHPanels;
+                return _selectedLHPanels;
             }
             set
             {

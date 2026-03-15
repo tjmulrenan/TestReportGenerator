@@ -166,17 +166,10 @@ namespace ReportGeneratorWPF
 
         private void SafeAttachTextToTags(ReportDocument report, string sourceFile, string[] reportTags)
         {
-            try
+            if (File.Exists(sourceFile))
             {
-                if (File.Exists(sourceFile))
-                {
-                    string sectionText = File.ReadAllText(sourceFile);
-                    report.AttachTextToTags(reportTags, sectionText, true);
-                }
-            }
-            catch(Exception ex)
-            {
-                // Catch specific file access exceptions here
+                string sectionText = File.ReadAllText(sourceFile);
+                report.AttachTextToTags(reportTags, sectionText, true);
             }
         }
     }

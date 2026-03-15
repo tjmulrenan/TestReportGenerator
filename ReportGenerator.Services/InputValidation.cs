@@ -4,9 +4,9 @@ namespace ReportGenerator.Services
 {
     public static class InputValidation
     {        
-        public static string TodaysTestNumberAsString = DateTime.Now.ToString("yyMMdd") + "2";
-       
-        public static int TodaysTestNumberAsInt = Convert.ToInt32(TodaysTestNumberAsString);
+        public static string TodaysTestNumberAsString => DateTime.Now.ToString("yyMMdd") + "2";
+
+        public static int TodaysTestNumberAsInt => Convert.ToInt32(TodaysTestNumberAsString);
 
         public static bool IsValidTestNum(string reportNum)
         {

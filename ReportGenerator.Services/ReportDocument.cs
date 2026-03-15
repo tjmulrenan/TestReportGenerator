@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -20,12 +21,8 @@ namespace ReportGenerator.Services
 
             for (int i = 0; i < originalText.Length; i += maxNoChars)
             {
-                if (i + maxNoChars > originalText.Length)
-                {
-                    maxNoChars = originalText.Length - i;
-                }
-
-                chunks.Add(originalText.Substring(i, maxNoChars));
+                int length = Math.Min(maxNoChars, originalText.Length - i);
+                chunks.Add(originalText.Substring(i, length));
             }
 
             return chunks;
@@ -95,14 +92,18 @@ namespace ReportGenerator.Services
 
         public void CreateWordDocument(object templateFilename, object newFilename)
         {
-            Application wordApp = new Application();
-            object missing = Missing.Value;
-            Document myWordDoc = null;
+            if (!File.Exists((string)templateFilename))
+            {
+                throw new FileNotFoundException($"Template not found: {templateFilename}");
+            }
 
-            if (File.Exists((string)templateFilename))
+            Application wordApp = new Application();
+            Document myWordDoc = null;
+            object missing = Missing.Value;
+
+            try
             {
                 object readOnly = false;
-                object isVisible = false;
                 wordApp.Visible = false;
 
                 myWordDoc = wordApp.Documents.Open(ref templateFilename,
@@ -123,9 +124,6 @@ namespace ReportGenerator.Services
                     ref missing);
 
                 myWordDoc.Activate();
-
-                //find and replace
-
 
                 foreach (var reportDatum in _reportData)
                 {
@@ -159,34 +157,31 @@ namespace ReportGenerator.Services
                             ref missing);
                     }
                 }
-            }
 
-            else
+                myWordDoc.SaveAs2(ref newFilename,
+                    ref missing,
+                    ref missing,
+                    ref missing,
+                    ref missing,
+                    ref missing,
+                    ref missing,
+                    ref missing,
+                    ref missing,
+                    ref missing,
+                    ref missing,
+                    ref missing,
+                    ref missing,
+                    ref missing,
+                    ref missing,
+                    ref missing);
+            }
+            finally
             {
-                Console.WriteLine("File not Found!");
+                myWordDoc?.Close();
+                if (myWordDoc != null) Marshal.ReleaseComObject(myWordDoc);
+                wordApp.Quit();
+                Marshal.ReleaseComObject(wordApp);
             }
-
-            //Save as
-            myWordDoc.SaveAs2(ref newFilename,
-                ref missing,
-                ref missing,
-                ref missing,
-                ref missing,
-                ref missing,
-                ref missing,
-                ref missing,
-                ref missing,
-                ref missing,
-                ref missing,
-                ref missing,
-                ref missing,
-                ref missing,
-                ref missing,
-                ref missing);
-
-            myWordDoc.Close();
-            wordApp.Quit();
-            Console.WriteLine("File Created!");
         }
     }
 }
