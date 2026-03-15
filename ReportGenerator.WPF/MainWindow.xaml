@@ -6,11 +6,12 @@
         xmlns:local="clr-namespace:ReportGeneratorWPF"
         mc:Ignorable="d"
         Title="CFRReportGenerator" SizeToContent ="WidthAndHeight" ResizeMode ="NoResize"
-        Icon="/logo.png">
+        Icon="/logo.ico"
+        Background="White">
     <Window.Resources>
         <local:InverseBooleanConverter x:Key="InverseBoolConverter"/>
     </Window.Resources>
-    <Grid Margin="3">
+    <Grid Margin="3" Background="White">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="300"/>
             <ColumnDefinition Width="50"/>

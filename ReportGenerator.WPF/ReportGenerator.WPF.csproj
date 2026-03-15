@@ -5,6 +5,7 @@
     <TargetFramework>net8.0-windows</TargetFramework>
     <RootNamespace>ReportGeneratorWPF</RootNamespace>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>logo.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -17,6 +18,7 @@
 
   <ItemGroup>
     <Resource Include="logo.png" />
+    <Resource Include="logo.ico" />
   </ItemGroup>
 
 </Project>
