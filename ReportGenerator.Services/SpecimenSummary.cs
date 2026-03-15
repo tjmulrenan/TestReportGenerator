@@ -53,11 +53,11 @@ namespace ReportGenerator.Services
             {
                 overpanelOrSidePanelsResult = $"with {glazedOrInfilled} overpanels ";
             }
-            else if (overpanelOrSidepanels == "Side panels")
+            else if (overpanelOrSidepanels == "Sidepanels")
             {
                 overpanelOrSidePanelsResult = $"with {glazedOrInfilled} side panels ";
             }
-            else if (overpanelOrSidepanels == "Overpanels/side panels ")
+            else if (overpanelOrSidepanels == "Overpanels and Side Panels")
             {
                 overpanelOrSidePanelsResult = $"with {glazedOrInfilled} overpanels and side panels ";
             }
@@ -69,7 +69,6 @@ namespace ReportGenerator.Services
             {
                 overpanelOrSidePanelsResult = otherText;
             }
-
             else
             {
                 overpanelOrSidePanelsResult = "UNKNOWNOVERPANELRESULT";
@@ -88,10 +87,6 @@ namespace ReportGenerator.Services
             else if (latched == "Unlatched")
             {
                 latchedResult = ", tested unlatched";
-            }
-            else if (latched == "No latch fitted")
-            {
-                latchedResult = ", with no latch fitted";
             }
             else
             {
@@ -119,23 +114,19 @@ namespace ReportGenerator.Services
 
             string conjunction = "";
 
-            if ((latched == "Latched" && shootbolts == "Yes") 
+            if ((latched == "Latched" && shootbolts == "Yes")
                 || (latched == "Unlatched" && shootbolts == "Yes but shootbolts disengaged")
                 || (latched == "Unlatched" && shootbolts == "No")
                 || (latched == "Latched" && shootbolts == "No"))
-
             {
                 conjunction = " with ";
             }
-            else if ((latched == "Latched" && shootbolts == "Yes but shootbolts disengaged") 
-                || (latched == "Unlatched" && shootbolts == "Yes") 
-                || (latched == "No latched fitted" && shootbolts == "Yes"))
+            else if ((latched == "Latched" && shootbolts == "Yes but shootbolts disengaged")
+                || (latched == "Unlatched" && shootbolts == "Yes"))
             {
                 conjunction = " but with ";
             }
-            else if ((latched == "Latched" && shootbolts == "") 
-                || (latched == "Latched with two point lock engaged" && shootbolts == "No") 
-                || (latched == "No latched fitted" && shootbolts == "No"))
+            else if (latched == "Latched with two point lock engaged" && shootbolts == "No")
             {
                 conjunction = "";
             }
@@ -143,10 +134,9 @@ namespace ReportGenerator.Services
             {
                 conjunction = " and ";
             }
-            else if ((latched == "Latched with two point lock engaged" && shootbolts == "Yes but shootbolts disengaged") 
-                || (latched == "No latched fitted" && shootbolts == "Yes but disengaged"))
+            else if (latched == "Latched with two point lock engaged" && shootbolts == "Yes but shootbolts disengaged")
             {
-                conjunction = "and with";
+                conjunction = " and with ";
             }
             else
             {

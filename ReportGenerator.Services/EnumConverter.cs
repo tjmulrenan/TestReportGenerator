@@ -9,37 +9,6 @@ namespace ReportGenerator.Services
 
     public static class EnumConverter
     {
-        public enum SpecimenTestType
-        {
-            Unknown,
-            Doorset,
-            Partition,
-            Ceiling,
-            Penetration
-        }
-
-        public static SpecimenTestType GetTestType(string specimenTypeNum)
-        {
-
-            switch (specimenTypeNum)
-            {
-                case "1":
-                    return SpecimenTestType.Doorset;
-
-                case "2":
-                    return SpecimenTestType.Partition;
-
-                case "3":
-                    return SpecimenTestType.Ceiling;
-
-                case "4":
-                    return SpecimenTestType.Penetration;
-
-                default:
-                    return SpecimenTestType.Unknown;
-            }
-        }
-
         public enum SpecimenStandardType : int
         {
             Unknown = 0,

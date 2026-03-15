@@ -14,7 +14,9 @@ namespace ReportGenerator.CLI
         static void Main(string[] args)
         {
 
-            if (CleanupService.HasActiveWordInstances())
+            var cleanupService = new CleanupService(new ProcessService());
+
+            if (cleanupService.HasActiveWordInstances())
             {
                 Console.WriteLine("Detected active instances of Word");
                 Console.WriteLine("Push Y to kill all instances and continue");
@@ -22,7 +24,7 @@ namespace ReportGenerator.CLI
 
                 if (key.Key == ConsoleKey.Y)
                 {
-                    CleanupService.KillWordInstances();
+                    cleanupService.KillWordInstances();
                     Console.WriteLine("");
                 }
                 else
@@ -32,10 +34,6 @@ namespace ReportGenerator.CLI
             }
 
             var report = new ReportDocument();
-
-            ////used throughout program to show invalid input
-
-            string invalid = "Invalid selection, please try again";
 
             //Console.WriteLine("Welcome to the Report-o-matic!");
 

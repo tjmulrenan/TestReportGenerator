@@ -37,11 +37,6 @@ namespace ReportGenerator.Services
                 textChunks = SplitText(text);
             }
 
-            //if (textChunks.Count != orderedTags.Count())
-            //{
-            //    throw new ArgumentException("Text chunks count not equal to tags count");
-            //}
-
             for (int tagIndex = 0; tagIndex < orderedTags.Count(); tagIndex++)
             {
                 var currentTextChunk = string.Empty;

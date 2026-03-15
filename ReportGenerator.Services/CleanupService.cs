@@ -33,15 +33,4 @@ namespace ReportGenerator.Services
             }
         }
     }
-
-  
-
-
-  
-
-
-  
-
-
- 
 }

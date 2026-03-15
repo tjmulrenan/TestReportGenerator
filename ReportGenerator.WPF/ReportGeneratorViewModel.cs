@@ -1,11 +1,6 @@
 ﻿using ReportGenerator.Services;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace ReportGeneratorWPF
@@ -116,13 +111,6 @@ namespace ReportGeneratorWPF
 
             report.CreateWordDocument(templateFilename, outputFilename);
 
-            var outputFilenameWithExtension = $"{outputFilename}.docx";
-
-            //if (File.Exists(outputFilenameWithExtension))
-            //{
-            //    Process.Start(outputFilenameWithExtension);
-            //}
-
             MessageBox.Show($"Report output to: {outputFilename}", "Report Created", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
@@ -154,7 +142,7 @@ namespace ReportGeneratorWPF
 
                 testDateFullWithSuffix = testNumDateOnly[4] == '0' ? testDateFull.Insert(1, dateSuffix) : testDateFull.Insert(2, dateSuffix);
             }
-            catch(Exception ex)
+            catch (Exception)
             {
                 return "Invalid test number";
             }
